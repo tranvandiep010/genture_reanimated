@@ -2,10 +2,10 @@ class LoginService {
 
     constructor() {
     }
-    async login(username, password) {
+    async login(username: string, password) {
         try {
             let response = await fetch(
-                'https://reactnative.dev/movies.json'
+                'http://10.113.1.134:8080/v1/user/' + username
             );
             let json = await response.json();
             return json;

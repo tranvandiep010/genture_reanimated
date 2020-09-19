@@ -1,16 +1,15 @@
 import { LOGIN, LOGIN_FAIL, LOGIN_SUCCESS } from '../actions/actionTypes';
 
 //state không thay đổi, chỉ trả về giá trị cuối cùng
-const loginReducers = (times: any, action: any) => {
-    switch (action.type) {
+const loginReducers = (times = 0, payload: any) => {
+    //console.log(payload)
+    switch (payload.type) {
         case LOGIN_FAIL:
-            if (action.callback)
-                action.callback();
+            payload.action.callback()
             return "Fail";
         case LOGIN_SUCCESS:
-            if (action.callback)
-                action.callback();
-            return "success" + action.payload;
+            payload.action.callback()
+            return "success";
         default:
             return "";
     }

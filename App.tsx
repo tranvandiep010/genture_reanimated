@@ -9,50 +9,78 @@
  */
 
 import React, { Component } from 'react';
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import allReducers from './src/reducers/index';
 //Redux saga
 import createSagaMiddleware from 'redux-saga';
 import rootSaga from './src/sagas/rootSaga';
 
-import LoginContainer from './src/containers/index';
-import Login from './src/components/Login';
+import LoginContainer from './src/containers/LoginContainer';
 import {
   SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-  Button,
 } from 'react-native';
 
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+import { HOME, LOGIN, REGISTER, USERMANAGEMENT } from './src/containers/index'
+import RegisterContainer from './src/containers/RegisterContainer';
+import { Navigation } from 'react-native-navigation';
+import { gestureHandlerRootHOC } from 'react-native-gesture-handler';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import ShopContainer from './src/containers/UserContainer';
+import UserManagementContainer from './src/containers/UserContainer';
+
 
 declare const global: { HermesInternal: null | {} };
 //Middleware
 const sagaMiddleware = createSagaMiddleware();
-let store = createStore(allReducers, applyMiddleware(sagaMiddleware));
+// const composeEnhancers =
+//   typeof window === 'object' && window.REDUX_DEVTOOLS_EXTENSION_COMPOSE
+//     ? window.REDUX_DEVTOOLS_EXTENSION_COMPOSE({
+//     })
+//     : compose;
+let store = createStore(allReducers, {}, composeWithDevTools(applyMiddleware(sagaMiddleware)));
+// let store = createStore(allReducers, applyMiddleware(sagaMiddleware));
 sagaMiddleware.run(rootSaga);
 
-class App extends Component {
-  render() {
-    return (
-      // {/* <StatusBar barStyle="dark-content" /> */}
-      <SafeAreaView>
-        <Provider store={store}>
-          <LoginContainer />
-        </Provider>
-      </SafeAreaView>
-    );
-  }
-};
+export const withReduxProvider = (C: React.FC) => (props: any) => (
+  <Provider store={store}>
+    <C {...props} />
+  </Provider>
+);
 
-export default App;
+const Screens = new Map<string, React.FC<any>>();
+
+// Screens.set(HOME, HomeScreen);
+Screens.set(LOGIN, LoginContainer);
+Screens.set(REGISTER, RegisterContainer);
+Screens.set(USERMANAGEMENT, UserManagementContainer);
+
+// Register screens
+Screens.forEach((C, key) => {
+  Navigation.registerComponent(
+    key,
+    () => withReduxProvider(C),
+    () => C,
+  );
+});
+
+export const startApp = () => {
+  Navigation.setRoot({
+    root: {
+      stack: {
+        children: [
+          {
+            component: {
+              name: USERMANAGEMENT,
+              options: {
+                topBar: {
+                  visible: false,
+                },
+              },
+            },
+          },
+        ],
+      },
+    },
+  });
+}

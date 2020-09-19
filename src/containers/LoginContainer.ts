@@ -4,15 +4,15 @@ import { connect } from 'react-redux';
 import { loginAction } from '../actions';
 import Login from '../components/Login';
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: any) => {
     return {
-        user: state.loginReducers ? state.loginReducers : "",
+        times: state.loginReducers ? state.loginReducers : "",
     }
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch: any) => {
     return {
-        onLogin: (username, password, callback) => {
+        onLogin: (username: string, password: string, callback: any) => {
             dispatch(loginAction(username, password, callback));
         }
     };

@@ -2,7 +2,25 @@ import React, { Component } from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
 import { Text, Input } from 'react-native-elements';
 
-class LoginCart extends Component {
+
+interface IProps {
+    callback: (Name: string, UnitId: string) => void,
+}
+
+interface IState {
+    Name: string,
+    UnitId: string,
+}
+
+class LoginCart extends Component<IProps, IState> {
+
+    constructor(props: any) {
+        super(props)
+        this.state = {
+            Name: "",
+            UnitId: "",
+        }
+    }
     render() {
         return (
             <View style={styles.loginCart}>
@@ -12,12 +30,24 @@ class LoginCart extends Component {
                     style={{ padding: 0, margin: 0 }}
                     label="Name"
                     labelStyle={{ fontSize: 12 }}
+                    onChangeText={(Name) => {
+                        this.setState({
+                            Name: Name,
+                        })
+                        this.props.callback(Name, this.state.UnitId)
+                    }}
                 />
                 <Input
                     placeholder="Unit ID"
                     style={{ padding: 0, margin: 0 }}
                     label="Unit ID"
                     labelStyle={{ fontSize: 12 }}
+                    onChangeText={(UnitId) => {
+                        this.setState({
+                            UnitId: UnitId,
+                        })
+                        this.props.callback(this.state.Name, UnitId)
+                    }}
                 />
             </View>
         );

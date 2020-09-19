@@ -1,16 +1,20 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, ImageBackground, Image, Button, ActivityIndicator } from 'react-native';
-import LoginCart from './LoginCart';
+import { Navigation } from 'react-native-navigation';
+import LoginCart from './widgets/LoginCart';
 import RadioButton from './widgets/RadioButton';
 
 interface IProps {
     onLogin: (username: string, password: string, callback: any) => void,
     times: string,
+    componentId: any,
 }
 
 interface IState {
     selected?: boolean,
     loading?: boolean,
+    Name: string,
+    UnitId: string,
 }
 
 class Login extends Component<IProps, IState> {
@@ -20,6 +24,8 @@ class Login extends Component<IProps, IState> {
         this.state = {
             selected: true,
             loading: false,
+            Name: "",
+            UnitId: "",
         };
     }
     changeSelectRememberMe = () => {
@@ -28,7 +34,22 @@ class Login extends Component<IProps, IState> {
         });
     };
     render() {
-        if (!this.state.loading)
+        if (!this.state.loading) {
+            console.log()
+            if (this.props.times != "") {
+                console.log(this.props.times + "result")
+                Navigation.setStackRoot(this.props.componentId, {
+                    component: {
+                        name: 'REGISTER',
+                        options: {
+                            topBar: {
+                                visible: false,
+                                animate: false
+                            }
+                        }
+                    }
+                })
+            }
             return (
                 <View style={{ width: '100%', height: '100%' }}>
                     <View style={styles.Column}>
@@ -36,7 +57,12 @@ class Login extends Component<IProps, IState> {
                             <Image source={require("../../assets/logo.png")} resizeMode='stretch' />
                             <Text>Lazyy</Text>
                         </View>
-                        <LoginCart />
+                        <LoginCart callback={(Name: string, UnitId: string) => {
+                            this.setState({
+                                Name: Name,
+                                UnitId: UnitId,
+                            })
+                        }} />
                         <View style={styles.buttonLogin}>
                             <RadioButton selected={this.state.selected} size={20} content={" Remember me"} callback={this.changeSelectRememberMe.bind(this)} />
                             <View style={styles.buttonLoginDetail}>
@@ -44,7 +70,7 @@ class Login extends Component<IProps, IState> {
                                     this.setState({
                                         loading: true
                                     });
-                                    this.props.onLogin("abcdef", "adkhsds",
+                                    this.props.onLogin(this.state.Name, this.state.UnitId,
                                         () => {
                                             console.log("callback")
                                             this.setState({ loading: false })
@@ -64,7 +90,7 @@ class Login extends Component<IProps, IState> {
                 </View> */}
                 </View >
             );
-        else return <ActivityIndicator size="large" color="#00ff00" />
+        } else return <ActivityIndicator size="large" color="#00ff00" />
     }
 }
 
