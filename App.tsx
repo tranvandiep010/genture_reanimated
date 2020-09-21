@@ -17,17 +17,12 @@ import createSagaMiddleware from 'redux-saga';
 import rootSaga from './src/sagas/rootSaga';
 
 import LoginContainer from './src/containers/LoginContainer';
-import {
-  SafeAreaView,
-} from 'react-native';
-
-import { HOME, LOGIN, REGISTER, USERMANAGEMENT } from './src/containers/index'
+import { LOGIN, REGISTER, TIMELINE, USERMANAGEMENT } from './src/containers/index'
 import RegisterContainer from './src/containers/RegisterContainer';
 import { Navigation } from 'react-native-navigation';
-import { gestureHandlerRootHOC } from 'react-native-gesture-handler';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import ShopContainer from './src/containers/UserContainer';
 import UserManagementContainer from './src/containers/UserContainer';
+import TimeLineContainer from './src/containers/TimeLineContainer';
 
 
 declare const global: { HermesInternal: null | {} };
@@ -54,6 +49,7 @@ const Screens = new Map<string, React.FC<any>>();
 Screens.set(LOGIN, LoginContainer);
 Screens.set(REGISTER, RegisterContainer);
 Screens.set(USERMANAGEMENT, UserManagementContainer);
+Screens.set(TIMELINE, TimeLineContainer);
 
 // Register screens
 Screens.forEach((C, key) => {
@@ -71,7 +67,7 @@ export const startApp = () => {
         children: [
           {
             component: {
-              name: USERMANAGEMENT,
+              name: TIMELINE,
               options: {
                 topBar: {
                   visible: false,

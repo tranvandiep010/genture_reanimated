@@ -1,7 +1,5 @@
 import { connect } from 'react-redux';
-import { getNextPageAction, refreshDataAction } from '../actions';
-import { REFRESH_DATA } from '../actions/actionTypes';
-import UserManagement from '../components/UserManagement';
+import TimeLine from '../components/TimeLine';
 
 
 const mapStateToProps = (state: any) => {
@@ -13,5 +11,5 @@ const mapDispatchToProps = (dispatch: any) => {
     return {
     };
 }
-const TimeLineContainer = connect(mapStateToProps, mapDispatchToProps)(UserManagement);
+const TimeLineContainer = connect(mapStateToProps, mapDispatchToProps)(TimeLine);
 export default TimeLineContainer;
