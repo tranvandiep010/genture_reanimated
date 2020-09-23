@@ -28,7 +28,6 @@ class TabBarItem extends Component<IItemProps, IItemState> {
         this.fadeOut = this.fadeOut.bind(this)
         this.state = {
             translateXValue: new Animated.Value(-this.props.width),
-            aniWidth: new Animated.Value(0),
         }
     }
 
@@ -36,12 +35,6 @@ class TabBarItem extends Component<IItemProps, IItemState> {
         // Will change fadeAnim value to 1 in 5 seconds
         Animated.timing(this.state.translateXValue, {
             toValue: 0,
-            duration: 2000,
-            useNativeDriver: true
-        }).start();
-
-        Animated.timing(this.state.aniWidth, {
-            toValue: 200,
             duration: 2000,
             useNativeDriver: true
         }).start();
@@ -80,21 +73,19 @@ class TabBarItem extends Component<IItemProps, IItemState> {
                     margin: 10,
                     transform: [{ translateX: this.state.translateXValue }]
                 }}>
-                    <TouchableOpacity style={{
+                    <View style={{
                         height: 25,
-                        width: this.state.aniWidth,
-                        
+                        width: 40,
                         alignItems: 'center',
                         justifyContent: 'center'
                     }}>
                         <AnimatedIcon name={this.props.icon}
                             size={25}
                             style={{ color: this.props.primaryColor }} />
-                    </TouchableOpacity>
+                    </View>
                     {this.props.width == 120 ? <Animated.Text style={{
                         fontSize: 16,
-                        //opacity: 0.5,
-                        // width: 60,
+                        width: 60,
                         color: this.props.primaryColor,
                         transform: [
                             {
@@ -114,7 +105,7 @@ class TabBarItem extends Component<IItemProps, IItemState> {
 
 
 interface IProps {
-    onSelect: (id: string) => void,
+    onSelect: (id: number) => void,
 }
 
 interface IState {
@@ -133,6 +124,7 @@ export default class CustomTabBar extends Component<IProps, IState> {
 
 
     changeTab(id: number) {
+        this.props.onSelect(id)
         switch (id) {
             case 1:
                 this.setState({
@@ -174,7 +166,7 @@ export default class CustomTabBar extends Component<IProps, IState> {
                     primaryColor={"red"}
                     translate={6}
                     width={this.state.tabBarItemSize[0]}
-                    secondaryColor={"rgba(255,0,0,0.1)"}
+                    secondaryColor={"rgba(255,0,0,0.2)"}
                 />
                 <TabBarItem onSelect={(id) => this.changeTab(id)}
                     id={2}
@@ -183,7 +175,7 @@ export default class CustomTabBar extends Component<IProps, IState> {
                     primaryColor={"purple"}
                     translate={6}
                     width={this.state.tabBarItemSize[1]}
-                    secondaryColor={"rgba(128,0,128,0.1)"}
+                    secondaryColor={"rgba(128,0,128,0.2)"}
                 />
                 <TabBarItem onSelect={(id) => this.changeTab(id)}
                     id={3}
@@ -192,7 +184,7 @@ export default class CustomTabBar extends Component<IProps, IState> {
                     primaryColor={"orange"}
                     translate={6}
                     width={this.state.tabBarItemSize[2]}
-                    secondaryColor={"rgba(255,165,0,0.1)"}
+                    secondaryColor={"rgba(255,165,0,0.2)"}
                 />
                 <TabBarItem onSelect={(id) => this.changeTab(id)}
                     id={4}
@@ -201,7 +193,7 @@ export default class CustomTabBar extends Component<IProps, IState> {
                     primaryColor={"#5f9ea0"}
                     translate={6}
                     width={this.state.tabBarItemSize[3]}
-                    secondaryColor={"rgba(95,158,160,0.1)"}
+                    secondaryColor={"rgba(95,158,160,0.2)"}
                 />
             </View>
         );
