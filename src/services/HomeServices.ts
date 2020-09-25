@@ -1,15 +1,16 @@
+
 class HomeService {
 
   constructor() {
   }
-  async uploadFile(uri: string, type: string, name: string, size: number) {
+  async uploadFile(uri: string, typeFile: string, name: string, size: number) {
     const split = uri.split('/');
     const realName = split.pop();
     const inbox = split.pop();
     const realPath = `${RNFS.TemporaryDirectoryPath}${inbox}/${name}`;
     // require the module
     var RNFS = require('react-native-fs');
-
+    console.log("real path" + realPath)
     var uploadUrl = 'http://10.113.1.134:8080/v1/file/';
     // create an array of objects of the files you want to upload
     var files = [

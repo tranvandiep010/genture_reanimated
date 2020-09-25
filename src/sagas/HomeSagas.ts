@@ -4,10 +4,10 @@ import { UPLOAD_FAIL, UPLOAD_FILE, UPLOAD_SUCCESS } from '../actions/actionTypes
 import { call, put, takeEvery } from 'redux-saga/effects';
 import homeServices from '../services/HomeServices';
 
-function* uploadFileHandler(action) {
-    console.log("upload file")
+function* uploadFileHandler(action: any) {
     try {
-        const response = yield call(homeServices.login, action.uri, action.type, action.name, action.size)
+        console.log(action)
+        const response = yield call(homeServices.uploadFile, action.uri, action.typeFile, action.name, action.size)
         if (response) {
             yield put({
                 type: UPLOAD_SUCCESS,

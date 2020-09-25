@@ -24,11 +24,11 @@ export const getNextPageAction = (currPage: Number, callback) => {
     }
 }
 
-export const uploadFile = (uri: string, type: string, name: string, size: number, callback: any) => {
+export const uploadFile = (uri: string, typeFile: string, name: string, size: number, callback: any) => {
     return {
         type: UPLOAD_FILE,
         uri,
-        type,
+        typeFile,
         name,
         size,
         callback: callback,

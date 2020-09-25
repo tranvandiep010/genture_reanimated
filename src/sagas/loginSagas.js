@@ -9,8 +9,6 @@ function* loginHandler(action) {
     try {
         const response = yield call(loginServices.login, action.username, action.password)
         if (response) {
-            // action.callback()
-            // action.response = response
             yield put({
                 type: LOGIN_SUCCESS,
                 action,
