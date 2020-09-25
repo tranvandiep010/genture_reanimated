@@ -4,20 +4,20 @@ class HomeService {
   constructor() {
   }
   async uploadFile(uri: string, typeFile: string, name: string, size: number) {
-    const split = uri.split('/');
-    const realName = split.pop();
-    const inbox = split.pop();
-    const realPath = `${RNFS.TemporaryDirectoryPath}${inbox}/${name}`;
+    // const split = uri.split('/');
+    // const realName = split.pop();
+    // const inbox = split.pop();
+    // const realPath = `${RNFS.TemporaryDirectoryPath}${inbox}/${name}`;
     // require the module
     var RNFS = require('react-native-fs');
-    console.log("real path" + realPath)
-    var uploadUrl = 'http://10.113.1.134:8080/v1/file/';
+    console.log("real path")
+    var uploadUrl = 'http://10.113.1.134:8080/v1/file';
     // create an array of objects of the files you want to upload
     var files = [
       {
-        name: realName,
-        filename: realName,
-        filepath: realPath,
+        name: name,
+        filename: name,
+        filepath: uri,
       },
     ];
 
@@ -31,29 +31,47 @@ class HomeService {
       console.log('UPLOAD IS ' + percentage + '% DONE!');
     };
 
-    // upload files
-    RNFS.uploadFiles({
-      toUrl: uploadUrl,
-      files: files,
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-      },
-      begin: uploadBegin,
-      progress: uploadProgress
-    }).promise.then((response: any) => {
-      if (response.statusCode == 200) {
-        console.log('FILES UPLOADED!'); // response.statusCode, response.headers, response.body
-      } else {
-        console.log('SERVER ERROR');
+    RNFS.readFile(uri, "base64").then(async (response: any)=>{
+      console.log(response)
+      let res = await fetch(
+        uploadUrl,
+        {
+          method: 'post',
+          body: response,
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'text/plain',
+          },
+        }
+      );
+      let responseJson = await res.json();
+      if (responseJson.status == 1) {
+        console.log('Upload Successful');
       }
     })
-      .catch((err: any) => {
-        if (err.description === "cancelled") {
-          // cancelled by user
-        }
-        console.log(err);
-      });
+    // upload files
+    // RNFS.uploadFiles({
+    //   toUrl: uploadUrl,
+    //   files: files,
+    //   method: 'POST',
+    //   headers: {
+    //     'Accept': 'application/json',
+    //   },
+    //   begin: uploadBegin,
+    //   progress: uploadProgress
+    // }).promise.then((response: any) => {
+    //   if (response.statusCode == 200) {
+    //     console.log('FILES UPLOADED!'); // response.statusCode, response.headers, response.body
+    //   } else {
+    //     console.log('SERVER ERROR');
+    //   }
+    // })
+    //   .catch((err: any) => {
+    //     if (err.description === "cancelled") {
+    //       // cancelled by user
+    //     }
+    //     console.log("ERR:"+err);
+    //   });
   }
 }
 var homeServices = new HomeService();
