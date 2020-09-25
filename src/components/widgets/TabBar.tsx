@@ -158,6 +158,8 @@ export default class CustomTabBar extends Component<IProps, IState> {
                 backgroundColor: 'white',
                 position: 'absolute',
                 bottom: 0,
+                zIndex: 1,
+                elevation: 1,
             }}>
                 <TabBarItem onSelect={(id) => this.changeTab(id)}
                     id={1}
@@ -199,17 +201,3 @@ export default class CustomTabBar extends Component<IProps, IState> {
         );
     }
 }
-
-const styles = StyleSheet.create({
-    TabBar: {
-        flexGrow: 1,
-        flexDirection: 'row',
-        alignItems: 'center',
-        height: 100,
-        minWidth: 200,
-        maxWidth: '100%',
-        backgroundColor: 'white',
-        borderRadius: 50,
-        padding: 5,
-    }
-})

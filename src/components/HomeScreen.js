@@ -29,14 +29,15 @@ export default class HomeScreen extends Component {
                 return index;
             },
             (type, dim) => {
-                dim.width = '100%';
-                dim.height = 300;
+                dim.width = 400;
+                dim.height = 350;
             }
         );
         this.state = {
             currCate: 0,
             categoryProvider: _dataProvider.cloneWithRows(["NearBy", "Trivia", 'Express', 'Asia']),
             storeProvider: _dataProvider.cloneWithRows([new Store("Kasuite", "Nam Dinh", "Nem", "https://cdn.pixabay.com/photo/2016/12/26/17/28/food-1932466__340.jpg"),
+            new Store("Kasuite", "Nam Dinh", "Nem", "https://cdn.pixabay.com/photo/2016/12/26/17/28/food-1932466__340.jpg"),
             new Store("Kasuite", "Nam Dinh", "Nem", "https://cdn.pixabay.com/photo/2016/12/26/17/28/food-1932466__340.jpg"),
             new Store("Kasuite", "Nam Dinh", "Nem", "https://cdn.pixabay.com/photo/2016/12/26/17/28/food-1932466__340.jpg")])
         }
@@ -85,7 +86,7 @@ export default class HomeScreen extends Component {
         return (
             <StoreItem store={data} />
         );
-    }
+    } 400
 
     render() {
         return (
@@ -95,7 +96,7 @@ export default class HomeScreen extends Component {
                     height: 60,
                     flexDirection: 'row',
                     justifyContent: 'space-between',
-                    alignItems: 'center'
+                    alignItems: 'center',
                 }}>
                     <Text style={styles.address}>Dilivering to Brooklyn</Text>
                     <TouchableNativeFeedback>
@@ -111,7 +112,8 @@ export default class HomeScreen extends Component {
                             width: '93%'
                         }}
                         inlineImageLeft='search'
-                        inlineImagePadding={5} />
+                        inlineImagePadding={15}
+                        placeholder="Search by restaurant" />
                     <Icon
                         name='close'
                         style={{
@@ -127,16 +129,17 @@ export default class HomeScreen extends Component {
                         rowRenderer={this._categoryRowRenderer}
                         layoutProvider={this._categryLayoutProvider}
                         isHorizontal={true}
-                        style={{ height: 70, }} />
+                        style={{ height: 70, }}
+                        showsHorizontalScrollIndicator={false} />
                 </View>
                 <View style={styles.stores}>
                     <RecyclerListView
                         dataProvider={this.state.storeProvider}
                         rowRenderer={this._storeRowRenderer}
-                        layoutProvider={this._storeLayoutProvider} />
+                        layoutProvider={this._storeLayoutProvider}
+                        style={{ height: '100%' }}
+                        showsVerticalScrollIndicator={false} />
                 </View>
-                {/* <Image source={{ uri: "https://cdn.pixabay.com/photo/2016/12/26/17/28/food-1932466__340.jpg" }}
-                    style={{ height: 200, resizeMode: 'stretch', margin: 5, width: '100%' }} /> */}
             </View>
         );
     }
@@ -146,10 +149,14 @@ const styles = StyleSheet.create({
     container: {
         width: '100%',
         height: '100%',
+        position: 'absolute',
+        top: 0,
         flexDirection: 'column',
         justifyContent: 'flex-start',
         alignItems: 'center',
         padding: 15,
+        zIndex: 0,
+        elevation: 0,
     },
     address: {
         fontSize: 20,
@@ -178,7 +185,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
     },
     stores: {
-        height: '100%',
         width: '100%',
+        height: '100%',
+        paddingBottom: 300,
     }
 })

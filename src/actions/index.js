@@ -1,4 +1,4 @@
-import { GET_MORE_DATA, LOGIN, LOGIN_FAIL, REFRESH_DATA } from './actionTypes';
+import { GET_MORE_DATA, LOGIN, LOGIN_FAIL, REFRESH_DATA, UPLOAD_FILE } from './actionTypes';
 
 export const loginAction = (username: string, password: string, callback) => {
     return {
@@ -20,6 +20,17 @@ export const getNextPageAction = (currPage: Number, callback) => {
     return {
         type: GET_MORE_DATA,
         currPage: currPage,
+        callback: callback,
+    }
+}
+
+export const uploadFile = (uri: string, type: string, name: string, size: number, callback: any) => {
+    return {
+        type: UPLOAD_FILE,
+        uri,
+        type,
+        name,
+        size,
         callback: callback,
     }
 }
