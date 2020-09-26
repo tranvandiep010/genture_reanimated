@@ -4,6 +4,7 @@ import AccountScreen from './widgets/AccountScreen';
 import HomeScreen from './HomeScreen';
 import HeartScreen from './HeartScreen'
 import CustomTabBar from './widgets/TabBar';
+import RankScreen from './widgets/RankScreen';
 
 interface IProps {
     uploadFile: (uri: string, type: string, name: string, size: number, callback: any) => void
@@ -27,7 +28,8 @@ export default class Home extends Component<IProps, IState> {
                 {{
                     1: <HomeScreen />,
                     2: <HeartScreen uploadFile={this.props.uploadFile} />,
-                    3: <AccountScreen />
+                    3: <RankScreen />,
+                    4: <AccountScreen />
                 }[this.state.currId]}
                 <CustomTabBar onSelect={(id) => { this.setState({ currId: id }) }} />
             </SafeAreaView>

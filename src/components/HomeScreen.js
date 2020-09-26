@@ -43,7 +43,7 @@ export default class HomeScreen extends Component {
         }
     }
 
-    _categoryRowRenderer(type: any, data: any, index: any) {
+    _categoryRowRenderer(type, data, index) {
         switch (index) {
             case this.state.currCate:
                 return (
@@ -81,12 +81,12 @@ export default class HomeScreen extends Component {
         }
     }
 
-    _storeRowRenderer(type: any, data: any, index: any) {
+    _storeRowRenderer(type, data, index) {
         console.log(data)
         return (
             <StoreItem store={data} />
         );
-    } 400
+    }
 
     render() {
         return (

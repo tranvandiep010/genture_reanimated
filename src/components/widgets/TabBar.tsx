@@ -181,21 +181,21 @@ export default class CustomTabBar extends Component<IProps, IState> {
                 />
                 <TabBarItem onSelect={(id) => this.changeTab(id)}
                     id={3}
+                    icon={"Trophy"}
+                    label={"Rank"}
+                    primaryColor={"#5f9ea0"}
+                    translate={6}
+                    width={this.state.tabBarItemSize[2]}
+                    secondaryColor={"rgba(95,158,160,0.2)"}
+                />
+                <TabBarItem onSelect={(id) => this.changeTab(id)}
+                    id={4}
                     icon={"user"}
                     label={"Account"}
                     primaryColor={"orange"}
                     translate={6}
-                    width={this.state.tabBarItemSize[2]}
-                    secondaryColor={"rgba(255,165,0,0.2)"}
-                />
-                <TabBarItem onSelect={(id) => this.changeTab(id)}
-                    id={4}
-                    icon={"search1"}
-                    label={"Search"}
-                    primaryColor={"#5f9ea0"}
-                    translate={6}
                     width={this.state.tabBarItemSize[3]}
-                    secondaryColor={"rgba(95,158,160,0.2)"}
+                    secondaryColor={"rgba(255,165,0,0.2)"}
                 />
             </View>
         );

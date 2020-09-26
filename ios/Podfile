@@ -8,9 +8,9 @@ target 'genture_reanimated' do
 
   use_react_native!(:path => config["reactNativePath"])
 
-  pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
 
-  pod 'RNReanimated', :path => '../node_modules/react-native-reanimated'
+
+  pod 'react-native-maps', :path => '../node_modules/react-native-maps'
 
   target 'genture_reanimatedTests' do
     inherit! :complete

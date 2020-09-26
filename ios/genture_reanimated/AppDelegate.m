@@ -30,6 +30,13 @@ static void InitializeFlipper(UIApplication *application) {
 #ifdef FB_SONARKIT_ENABLED
   InitializeFlipper(application);
 #endif
+  for (NSString* family in [UIFont familyNames])
+  {
+    NSLog(@"%@", family);
+    for (NSString* name in [UIFont fontNamesForFamilyName:family]) {
+      NSLog(@" %@",name);
+    }
+  }
 
   [ReactNativeNavigation bootstrapWithDelegate:self launchOptions:launchOptions];
   return YES;
