@@ -10,7 +10,9 @@ target 'genture_reanimated' do
 
 
 
-  pod 'react-native-maps', :path => '../node_modules/react-native-maps'
+
+
+
 
   target 'genture_reanimatedTests' do
     inherit! :complete
